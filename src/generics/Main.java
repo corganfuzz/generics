@@ -1,5 +1,7 @@
 package generics;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -38,7 +40,7 @@ public class Main {
         int length = sc.nextInt();
         String[] myArray = new String[length];
 
-        System.out.print("Enter " + length + " only " + " elements, please: ");
+        System.out.print("Enter " + length + " elements ONLY, please: ");
         for (int i = 0; i < length; i++) {
             myArray[i] = sc.next();
         }
@@ -46,7 +48,42 @@ public class Main {
         printList(myArray);
     }
 
+    static class Search {
+        static <U> boolean linearSearch(U[] list, U key) {
+            for (U item : list) {
+                if (item.equals(key)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        static <U> boolean linearSearch(Iterable<U> collection, U key) {
+            for (U u : collection) {
+                if (u.equals(key)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        static void linearSearchListAndCollections() {
+            Integer[] list = {1, 4, 4, 2, 5, -3, 6, 2};
+            Integer searchKey = Integer.valueOf("2");
+            ArrayList<Integer> arrList = new ArrayList<>(Arrays.asList(list));
+
+            boolean listResult = Search.linearSearch(list, searchKey);
+            boolean collectionResult = Search.linearSearch(arrList, searchKey);
+
+            System.out.println("Given " + searchKey + " as the search key, is it present in the Object? " + listResult);
+            System.out.println("Given " + searchKey + " as the search key, is it present in the Object? " + collectionResult);
+        }
+    }
+
     public static void main(String[] args) {
-        sortingArraysGenerically();
+        Search.linearSearchListAndCollections();
+//        sortingArraysGenerically();
+
+
     }
 }
